@@ -12,8 +12,8 @@ const ok = "ok"
 
 func TestAuth(t *testing.T) {
 	r := gin.Default()
-	r.Use(BasicAuth(func(c *gin.Context, realm, user, pass string) bool {
-		return user == "something" && pass == "something else"
+	r.Use(BasicAuth(func(c *gin.Context, realm, user, pass string) AuthResult {
+		return AuthResult{Success: user == "something" && pass == "something else", Text: "not authorized"}
 	}))
 
 	r.GET("/", func(c *gin.Context) {
